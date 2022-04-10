@@ -1,6 +1,6 @@
-package org.examle.servlets;
+package org.example.servlets;
 
-import org.examle.connection.ConnectionDB;
+import org.example.connection.ConnectionDB;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

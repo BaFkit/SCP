@@ -1,7 +1,7 @@
-package org.examle.servlets;
+package org.example.servlets;
 
-import org.examle.Product;
-import org.examle.Products;
+import org.example.Product;
+import org.example.Products;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
