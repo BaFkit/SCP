@@ -1,7 +1,6 @@
 package org.example.servlets;
 
-import org.example.connection.ConnectionDB;
-
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -14,24 +13,29 @@ import java.sql.*;
 public class ServletGetProductListFromDB extends HttpServlet {
 
     private Connection connection;
-    private PreparedStatement ps;
 
     @Override
     public void init() throws ServletException {
-        ConnectionDB connectionDB = new ConnectionDB();
-        connection = (Connection) connectionDB.getConnection();
+        ServletContext context = getServletContext();
+        connection = (Connection) context.getAttribute("jdbcConnection");
+        if (connection == null) {
+            throw new ServletException("No JDBC connection in Servlet Context");
+        }
     }
+
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-            ps = connection.prepareStatement("SELECT * FROM products");
-            ResultSet rs = ps.executeQuery();
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT * FROM products");
             while (rs.next()) {
-                resp.getOutputStream().println("<p>"+ rs.getString(2) +"</p>");
+                String tableName = rs.getString(2);
+                resp.getWriter().println("<p> " + tableName + "</p>");
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new ServletException(e);
         }
     }
 }
+
