@@ -1,7 +1,7 @@
 package org.example.repository;
 
 import lombok.AllArgsConstructor;
-import org.example.model.Product;
+import org.example.entity.Product;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -10,7 +10,7 @@ import java.util.List;
 
 @Component
 @AllArgsConstructor
-public class ProductRepository {
+public class ProductRepository implements Repository<Product>{
 
     private List<Product> products;
 
@@ -24,15 +24,18 @@ public class ProductRepository {
         products.add(new Product(5, "Banana", 12));
     }
 
-    public Product getProductById(int id) {
-       return products.stream().filter(e -> e.getId() == id).findFirst().get();
+    public Product getById(int id) {
+       return products.stream().
+               filter(e -> e.getId() == id).
+               findFirst().
+               get();
     }
 
-    public List<Product> getProducts() {
+    public List<Product> getAll() {
         return products;
     }
 
-    public String getProductsList() {
+    public String getListAll() {
         StringBuilder sb = new StringBuilder();
         for (Product product: products) {
             sb.append("№: ")
