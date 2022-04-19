@@ -8,14 +8,14 @@
 </head>
 <body>
 <div class="container">
-    <form>
+    <form action="/index/add_product">
         <div class="mb-3">
             <label>Product name</label>
-            <input type="text" class="form-control" placeholder="Enter name">
+            <input type="text" name="product_name" class="form-control" placeholder="Enter name">
         </div>
         <div class="mb-3">
             <label>Product cost</label>
-            <input type="text" class="form-control" placeholder="Enter cost">
+            <input type="text" name="product_cost" class="form-control" placeholder="Enter cost">
         </div>
         <button type="submit" class="btn btn-primary">Add product</button>
     </form>
