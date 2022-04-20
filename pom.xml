@@ -10,6 +10,7 @@
     <modules>
         <module>module_L2</module>
         <module>module_L1</module>
+        <module>module_L3</module>
     </modules>
     <packaging>pom</packaging>
 
