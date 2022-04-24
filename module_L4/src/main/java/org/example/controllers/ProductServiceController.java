@@ -1,8 +1,8 @@
 package org.example.controllers;
 
+import lombok.AllArgsConstructor;
 import org.example.entity.Product;
 import org.example.services.ProductService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,16 +11,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
+@AllArgsConstructor
 @RequestMapping("/index")
 public class ProductServiceController {
 
-    @Autowired
     private ProductService productService;
-
 
     @PostMapping("/form_product")
     public String formUpdateProduct(Product product) {
-        if (product.getId() == 0) {
+        if (product.getId() == null) {
             productService.add(product);
         } else {
             productService.update(product);
@@ -41,13 +40,13 @@ public class ProductServiceController {
     }
 
     @GetMapping("{id}")
-    public String updateProduct(@PathVariable(value = "id") int id, Model model) {
+    public String updateProduct(@PathVariable(value = "id") Long id, Model model) {
         model.addAttribute("product", productService.getById(id));
         return "form_product";
     }
 
     @GetMapping("/delete/{id}")
-    public String deleteProduct(@PathVariable(value = "id") Integer id) {
+    public String deleteProduct(@PathVariable(value = "id") Long id) {
         productService.remove(id);
         return "redirect:/index/product_list";
     }

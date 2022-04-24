@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface EntityService<T> {
 
-    T getById(int id);
+    T getById(Long id);
 
     void add(T t);
 
@@ -12,6 +12,6 @@ public interface EntityService<T> {
 
     void update(T t);
 
-    void remove(int id);
+    void remove(Long id);
 
 }

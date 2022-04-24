@@ -4,52 +4,43 @@ import lombok.AllArgsConstructor;
 import org.example.entity.Product;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.PostConstruct;
-import java.util.ArrayList;
+import javax.persistence.EntityManager;
+import javax.transaction.Transactional;
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.atomic.AtomicInteger;
 
 @Component
 @AllArgsConstructor
 public class ProductRepository implements Repository<Product>{
 
-    private static AtomicInteger identity = new AtomicInteger(0);
-    private final Map<Integer, Product> identityMap = new ConcurrentHashMap<>();
-
-    @PostConstruct
-    public void init(){
-        add(new Product(0, "Milk", 10));
-        add(new Product(0, "Bread", 5));
-        add(new Product(0, "Orange", 7));
-        add(new Product(0, "Butter", 11));
-        add(new Product(0, "Banana", 12));
-    }
+    private final EntityManager entityManager;
 
     @Override
+    @Transactional
     public void add(Product product) {
-        product.setId(identity.incrementAndGet());
-        identityMap.put(product.getId(), product);
+        entityManager.persist(product);
     }
 
     @Override
+    @Transactional
     public void update(Product product) {
-        identityMap.put(product.getId(), product);
+        entityManager.merge(product);
     }
 
     @Override
-    public void remove(int id) {
-       identityMap.remove(id);
+    @Transactional
+    public void remove(Long id) {
+        entityManager.remove(getById(id));
     }
 
     @Override
-    public Product getById(int id) {
-        return identityMap.get(id);
+    public Product getById(Long id) {
+        return entityManager.find(Product.class, id);
     }
 
     @Override
     public List<Product> getAll() {
-        return new ArrayList<>(identityMap.values());
+        List<Product> products = entityManager
+                .createQuery("select a from Product a", Product.class).getResultList();
+        return products;
     }
 }
