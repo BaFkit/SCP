@@ -16,7 +16,7 @@ public class ProductService implements EntityService<Product> {
     private Repository<Product> productRepository;
 
     @Override
-    public Product getById(int id) {
+    public Product getById(Long id) {
         return productRepository.getById(id);
     }
 
@@ -36,7 +36,7 @@ public class ProductService implements EntityService<Product> {
     }
 
     @Override
-    public void remove(int id) {
+    public void remove(Long id) {
         productRepository.remove(id);
     }
 }

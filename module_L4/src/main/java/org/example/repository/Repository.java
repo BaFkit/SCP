@@ -4,15 +4,13 @@ import java.util.List;
 
 public interface Repository<T> {
 
-    void init();
-
     void add(T t);
 
     void update(T t);
 
-    void remove(int id);
+    void remove(Long id);
 
-    T getById(int id);
+    T getById(Long id);
 
     List<T> getAll();
 
