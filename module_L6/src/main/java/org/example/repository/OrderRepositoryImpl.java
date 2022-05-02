@@ -4,14 +4,14 @@ import lombok.AllArgsConstructor;
 import org.example.entity.Customer;
 import org.example.entity.Order;
 import org.example.entity.Product;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.util.List;
 
-@Component
+@Repository
 @AllArgsConstructor
 public class OrderRepositoryImpl implements OrderRepository<Customer, Product> {
 

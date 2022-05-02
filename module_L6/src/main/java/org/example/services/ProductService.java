@@ -1,9 +1,8 @@
 package org.example.services;
 
 import lombok.AllArgsConstructor;
-import org.example.entity.Customer;
 import org.example.entity.Product;
-import org.example.repository.EntityRepository;
+import org.example.repository.ProductRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,36 +11,36 @@ import java.util.List;
 @AllArgsConstructor
 public class ProductService implements EntityService<Product> {
 
-    private EntityRepository<Product, Customer> productEntityRepository;
+    private ProductRepository productRepository;
 
     @Override
     public Product getById(Long id) {
-        return productEntityRepository.getById(id);
+        return productRepository.getById(id);
     }
 
     @Override
     public void add(Product product) {
-        productEntityRepository.add(product);
+        productRepository.add(product);
     }
 
     @Override
     public List<Product> getEntityAll() {
-        return productEntityRepository.getAll();
+        return productRepository.getAll();
     }
 
     @Override
     public void update(Product product) {
-        productEntityRepository.update(product);
+        productRepository.update(product);
     }
 
     @Override
     public void remove(Long id) {
-        productEntityRepository.remove(id);
+        productRepository.remove(id);
     }
 
     @Override
     public Product getByName(String name) {
-       return productEntityRepository.getByName(name);
+       return productRepository.getByName(name);
     }
 
 }
