@@ -6,11 +6,9 @@ public interface EntityService<T> {
 
     T getById(Long id);
 
-    void add(T t);
+    void save(T t);
 
     List<T> getEntityAll();
-
-    void update(T t);
 
     void remove(Long id);
 

@@ -1,11 +1,12 @@
 package org.example.repository;
 
-import lombok.AllArgsConstructor;
+import org.example.entity.Product;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-@AllArgsConstructor
-public class ProductRepository {
+public interface ProductRepository extends CrudRepository<Product, Long> {
 
+    Product findByTitle(String title);
 
 }

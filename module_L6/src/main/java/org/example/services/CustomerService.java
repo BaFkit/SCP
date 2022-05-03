@@ -9,38 +9,34 @@ import java.util.List;
 
 @Service
 @AllArgsConstructor
-public class CustomerService implements EntityService<Customer>{
+public class CustomerService implements EntityService<Customer> {
 
     private CustomerRepository customerRepository;
 
     @Override
     public Customer getById(Long id) {
-        return customerRepository.getById(id);
+        List<Customer> list = (List<Customer>) customerRepository.findAll();
+        return list.stream().filter(e -> e.getId().equals(id)).findFirst().get();
     }
 
     @Override
-    public void add(Customer customer) {
-        customerRepository.add(customer);
+    public void save(Customer customer) {
+        customerRepository.save(customer);
     }
 
     @Override
     public List<Customer> getEntityAll() {
-        return customerRepository.getAll();
-    }
-
-    @Override
-    public void update(Customer customer) {
-        customerRepository.update(customer);
+        return (List<Customer>) customerRepository.findAll();
     }
 
     @Override
     public void remove(Long id) {
-        customerRepository.remove(id);
+        customerRepository.deleteById(id);
     }
 
     @Override
     public Customer getByName(String name) {
-        return customerRepository.getByName(name);
+        return customerRepository.findByName(name);
     }
 
 }

@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
 
-
 @Controller
 @RequestMapping("/index")
 public class ProductServiceController {
@@ -30,21 +29,12 @@ public class ProductServiceController {
     @GetMapping("/index")
     public String auth(HttpServletRequest request) {
         customer = customerService.getByName(request.getParameter("name"));
-        //done wrong, need fix:
-        if (customer != null) {
-            return "redirect:product_list";
-        } else {
-            return "redirect:404";
-        }
+        return "redirect:product_list";
     }
 
     @PostMapping("/form_product")
     public String formUpdateProduct(Product product) {
-        if (product.getId() == null) {
-            productService.add(product);
-        } else {
-            productService.update(product);
-        }
+        productService.save(product);
         return "redirect:product_list";
     }
 
