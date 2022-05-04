@@ -3,10 +3,14 @@ package org.example.services;
 import lombok.AllArgsConstructor;
 import org.example.entity.Product;
 import org.example.repository.ProductRepository;
+import org.example.repository.specifications.ProductSpecification;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -41,4 +45,18 @@ public class ProductService implements EntityService<Product>{
        return productRepository.findByTitle(title);
     }
 
+
+    @Override
+    public List<Product> getByNameThroughFilter(Optional<BigDecimal> min, Optional<BigDecimal> max) {
+
+        Specification<Product> specification = Specification.where(null);
+        if (min.isPresent()) {
+            specification = specification.and(ProductSpecification.greatOrEquals(min.get()));
+        }
+        if (max.isPresent()) {
+            specification = specification.and(ProductSpecification.lessOrEquals(max.get()));
+        }
+
+        return productRepository.findAll(specification);
+    }
 }

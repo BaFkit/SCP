@@ -6,7 +6,9 @@ import org.example.repository.CustomerRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -41,4 +43,8 @@ public class CustomerService implements EntityService<Customer> {
         return customerRepository.findByName(name);
     }
 
+    @Override
+    public List<Customer> getByNameThroughFilter(Optional<BigDecimal> param1, Optional<BigDecimal> param2) {
+        return null;
+    }
 }

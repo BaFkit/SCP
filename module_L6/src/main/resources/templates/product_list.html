@@ -9,8 +9,19 @@
 <body>
 <h1 align="center" th:text="'Welcome, ' + ${name}" />
 <div class="container">
+
+
     <div class="col-10 mx-auto">
         <h2>Product list</h2>
+
+        <div class="col-9">
+            <form class="form-inline" th:method="get">
+                <input type="number" th:value="${param.min}" class="form-control-md" name="min" placeholder="Min">
+                <input type="number" th:value="${param.max}" class="form-control-md" name="max" placeholder="Max">
+                <button type="submit" class="btn btn-outline-dark" th:text="Filter"></button>
+            </form>
+        </div>
+
         <table class="table table-success table-striped">
             <thead>
             <tr>
