@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import org.example.entity.Customer;
 import org.example.repository.CustomerRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -15,11 +16,11 @@ public class CustomerService implements EntityService<Customer> {
 
     @Override
     public Customer getById(Long id) {
-        List<Customer> list = (List<Customer>) customerRepository.findAll();
-        return list.stream().filter(e -> e.getId().equals(id)).findFirst().get();
+        return customerRepository.findById(id).get();
     }
 
     @Override
+    @Transactional
     public void save(Customer customer) {
         customerRepository.save(customer);
     }
@@ -30,6 +31,7 @@ public class CustomerService implements EntityService<Customer> {
     }
 
     @Override
+    @Transactional
     public void remove(Long id) {
         customerRepository.deleteById(id);
     }
