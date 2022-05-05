@@ -1,7 +1,3 @@
-CREATE DATABASE products;
-
-BEGIN;
-
 DROP TABLE IF EXISTS products CASCADE;
 CREATE TABLE products
 (
@@ -35,5 +31,3 @@ CREATE TABLE orders
     product_title VARCHAR(255),
     order_cost    numeric(8, 2)
 );
-
-COMMIT;

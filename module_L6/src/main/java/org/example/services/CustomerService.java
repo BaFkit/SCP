@@ -47,7 +47,7 @@ public class CustomerService implements EntityService<Customer> {
     }
 
     @Override
-    public List<Customer> getByNameThroughFilter(Optional<BigDecimal> param1, Optional<BigDecimal> param2) {
+    public List<Customer> getByThroughFilter(Optional<BigDecimal> param1, Optional<BigDecimal> param2) {
         return null;
     }
 }
