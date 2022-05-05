@@ -40,8 +40,10 @@ public class ProductServiceController {
     @GetMapping("/product_list")
     public String showProductList(Model model,
                                   @RequestParam(name = "min", required = false)Optional<BigDecimal> min,
-                                  @RequestParam(name = "max", required = false)Optional<BigDecimal> max) {
-        model.addAttribute("products", productService.getByThroughFilter(min, max));
+                                  @RequestParam(name = "max", required = false)Optional<BigDecimal> max,
+                                  @RequestParam(name = "page", required = false)Optional<Integer> page,
+                                  @RequestParam(name = "size", required = false)Optional<Integer> size) {
+        model.addAttribute("products", productService.getByThroughFilter(min, max, page, size));
         model.addAttribute("name", customer.getName());
         model.addAttribute("customer_products", ordersService.getListProducts(customer.getId()));
         return "product_list";

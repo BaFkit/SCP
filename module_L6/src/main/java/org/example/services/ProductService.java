@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import org.example.entity.Product;
 import org.example.repository.ProductRepository;
 import org.example.repository.specifications.ProductSpecification;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -49,7 +51,7 @@ public class ProductService implements EntityService<Product>{
     }
 
     @Transactional(readOnly = true)
-    public List<Product> getByThroughFilter(Optional<BigDecimal> min, Optional<BigDecimal> max) {
+    public Page<Product> getByThroughFilter(Optional<BigDecimal> min, Optional<BigDecimal> max, Optional<Integer> page, Optional<Integer> size) {
 
         Specification<Product> specification = Specification.where(null);
         if (min.isPresent()) {
@@ -59,6 +61,6 @@ public class ProductService implements EntityService<Product>{
             specification = specification.and(ProductSpecification.lessOrEquals(max.get()));
         }
 
-        return productRepository.findAll(specification);
+        return productRepository.findAll(specification, PageRequest.of(page.orElse(1) - 1, size.orElse(10)));
     }
 }

@@ -8,7 +8,7 @@
     <title>Product list</title>
 </head>
 <body>
-<h1 align="center" th:text="'Welcome, ' + ${name}"/>
+<h1 th:align="center" th:text="'Welcome, ' + ${name}"/>
 <div class="container">
     <div class="col-10 mx-auto">
         <h2>Product list</h2>
@@ -29,7 +29,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="product : ${products}">
+            <tr th:if="${products.hasContent()}" th:each="product : ${products}">
                 <th scope="row" th:text="${product.id}">1</th>
                 <th scope="row" th:text="${product.title}">1</th>
                 <th scope="row" th:text="${product.cost}">1</th>
@@ -40,10 +40,26 @@
                     <a th:href="@{/index/buyer_list/{id}(id = ${product.id})}">Show buyer List</a>
                 </th>
             </tr>
+
+            <tr th:unless="${products.hasContent()}">
+                <td colspan="3">No products</td>
+            </tr>
             </tbody>
         </table>
-        <a th:href="@{/index/add_product}">Add product</a>
-        <a th:href="@{/index/orders_list}">View order list</a>
+        <div>
+            <a th:href="@{/index/add_product}">Add product</a>
+            <a th:href="@{/index/orders_list}">View order list</a>
+        </div>
+    </div>
+    <div th:if="${products.hasContent()}">
+        <nav>
+            <ul class="pagination justify-content-center">
+                <li th:each="number : ${#numbers.sequence(1, products.totalPages)}"
+                    class="page-item" th:classappend="${number == products.number + 1} ? 'active'">
+                    <a class="page-link" th:href="@{/index/product_list(page=${number}, size=${products.size}, min=${param.min}, max=${param.max})}">[[${number}]]</a>
+                </li>
+            </ul>
+        </nav>
     </div>
 </div>
 <br>
