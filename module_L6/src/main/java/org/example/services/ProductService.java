@@ -19,6 +19,7 @@ public class ProductService implements EntityService<Product>{
     private ProductRepository productRepository;
 
     @Override
+    @Transactional(readOnly = true)
     public Product getById(Long id) {
        return productRepository.findById(id).get();
     }
@@ -30,6 +31,7 @@ public class ProductService implements EntityService<Product>{
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<Product> getEntityAll() {
         return (List<Product>) productRepository.findAll();
     }
@@ -41,12 +43,13 @@ public class ProductService implements EntityService<Product>{
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Product getByName(String title) {
        return productRepository.findByTitle(title);
     }
 
-
     @Override
+    @Transactional(readOnly = true)
     public List<Product> getByNameThroughFilter(Optional<BigDecimal> min, Optional<BigDecimal> max) {
 
         Specification<Product> specification = Specification.where(null);

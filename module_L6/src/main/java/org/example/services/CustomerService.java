@@ -17,6 +17,7 @@ public class CustomerService implements EntityService<Customer> {
     private CustomerRepository customerRepository;
 
     @Override
+    @Transactional(readOnly = true)
     public Customer getById(Long id) {
         return customerRepository.findById(id).get();
     }
@@ -28,6 +29,7 @@ public class CustomerService implements EntityService<Customer> {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<Customer> getEntityAll() {
         return (List<Customer>) customerRepository.findAll();
     }
@@ -39,6 +41,7 @@ public class CustomerService implements EntityService<Customer> {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Customer getByName(String name) {
         return customerRepository.findByName(name);
     }

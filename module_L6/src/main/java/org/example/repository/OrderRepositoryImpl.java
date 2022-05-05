@@ -8,7 +8,6 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.transaction.Transactional;
 import java.util.List;
 
 @Repository
@@ -19,7 +18,6 @@ public class OrderRepositoryImpl implements OrderRepository<Customer, Product> {
     private final EntityManager entityManager;
 
     @Override
-    @Transactional
     public void add(Customer customer, Product product) {
         Order order = new Order(customer.getId(), customer.getName(), product.getId(), product.getTitle(), product.getCost());
         entityManager.persist(order);
