@@ -1,19 +1,22 @@
 package org.example.services;
 
+import org.example.entity.Product;
+
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.Optional;
 
 public interface EntityService<T> {
 
     T getById(Long id);
 
-    void add(T t);
+    void save(T t);
 
     List<T> getEntityAll();
-
-    void update(T t);
 
     void remove(Long id);
 
     T getByName(String name);
 
+    List<T> getByNameThroughFilter(Optional<BigDecimal> param1, Optional<BigDecimal> param2);
 }

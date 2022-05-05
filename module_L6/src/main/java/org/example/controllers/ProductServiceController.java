@@ -6,13 +6,11 @@ import org.example.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-
+import java.math.BigDecimal;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/index")
@@ -30,28 +28,21 @@ public class ProductServiceController {
     @GetMapping("/index")
     public String auth(HttpServletRequest request) {
         customer = customerService.getByName(request.getParameter("name"));
-        //done wrong, need fix:
-        if (customer != null) {
-            return "redirect:product_list";
-        } else {
-            return "redirect:404";
-        }
+        return "redirect:product_list";
     }
 
     @PostMapping("/form_product")
     public String formUpdateProduct(Product product) {
-        if (product.getId() == null) {
-            productService.add(product);
-        } else {
-            productService.update(product);
-        }
+        productService.save(product);
         return "redirect:product_list";
     }
 
     @GetMapping("/product_list")
-    public String showProductList(Model model) {
+    public String showProductList(Model model,
+                                  @RequestParam(name = "min", required = false)Optional<BigDecimal> min,
+                                  @RequestParam(name = "max", required = false)Optional<BigDecimal> max) {
+        model.addAttribute("products", productService.getByNameThroughFilter(min, max));
         model.addAttribute("name", customer.getName());
-        model.addAttribute("products", productService.getEntityAll());
         model.addAttribute("customer_products", ordersService.getListProducts(customer.getId()));
         return "product_list";
     }
