@@ -41,7 +41,7 @@ public class ProductServiceController {
     public String showProductList(Model model,
                                   @RequestParam(name = "min", required = false)Optional<BigDecimal> min,
                                   @RequestParam(name = "max", required = false)Optional<BigDecimal> max) {
-        model.addAttribute("products", productService.getByNameThroughFilter(min, max));
+        model.addAttribute("products", productService.getByThroughFilter(min, max));
         model.addAttribute("name", customer.getName());
         model.addAttribute("customer_products", ordersService.getListProducts(customer.getId()));
         return "product_list";

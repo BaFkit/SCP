@@ -48,9 +48,8 @@ public class ProductService implements EntityService<Product>{
        return productRepository.findByTitle(title);
     }
 
-    @Override
     @Transactional(readOnly = true)
-    public List<Product> getByNameThroughFilter(Optional<BigDecimal> min, Optional<BigDecimal> max) {
+    public List<Product> getByThroughFilter(Optional<BigDecimal> min, Optional<BigDecimal> max) {
 
         Specification<Product> specification = Specification.where(null);
         if (min.isPresent()) {
