@@ -1,7 +1,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: header"/>
 <body>
-<h1 th:text="'Hello, ' + ${message}" />
-
+<h1 th:align="center" th:text="'Hello, ' + ${message}" />
 <div class="container">
     <form th:action="@{index/index}" th:method="get">
         <div class="mb-3">
@@ -11,6 +11,6 @@
         <button type="submit" class="btn btn-primary">View all products</button>
     </form>
 </div>
-
+<footer th:replace="fragments/footer :: scripts"/>
 </body>
 </html>

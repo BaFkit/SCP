@@ -99,6 +99,12 @@ public class ProductServiceController {
         return "orders_list";
     }
 
+    @GetMapping("/product_list/{amount}")
+    public String showByAmount(@PathVariable(value = "amount") int amount) {
+        productServiceImpl.setAmountProduct(amount);
+        return "redirect:/index/product_list";
+    }
+
     @ExceptionHandler
     public ModelAndView notFoundExceptionHandler(NotFoundException e) {
         ModelAndView modelAndView = new ModelAndView("/404");

@@ -1,9 +1,11 @@
 package org.example.services;
 
-import lombok.AllArgsConstructor;
+import lombok.Setter;
 import org.example.entity.Product;
 import org.example.repository.ProductRepository;
 import org.example.repository.specifications.ProductSpecification;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
@@ -15,10 +17,14 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-@AllArgsConstructor
 public class ProductServiceImpl implements ProductService<Product> {
 
+    @Autowired
     private ProductRepository productRepository;
+
+    @Setter
+    @Value("10")
+    private int amountProduct;
 
     @Override
     @Transactional(readOnly = true)
@@ -61,6 +67,6 @@ public class ProductServiceImpl implements ProductService<Product> {
             specification = specification.and(ProductSpecification.lessOrEquals(max.get()));
         }
 
-        return productRepository.findAll(specification, PageRequest.of(page.orElse(1) - 1, size.orElse(10)));
+        return productRepository.findAll(specification, PageRequest.of(page.orElse(1) - 1, size.orElse(amountProduct)));
     }
 }
