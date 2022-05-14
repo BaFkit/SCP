@@ -18,5 +18,7 @@ public interface ProductService<T> {
 
     T getByName(String name);
 
+    void setAmountProduct(int amount);
+
     Page<T> getByThroughFilter(Optional<BigDecimal> min, Optional<BigDecimal> max, Optional<Integer> page, Optional<Integer> size);
 }

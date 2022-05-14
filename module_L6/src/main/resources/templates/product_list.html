@@ -1,14 +1,7 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <title>Product list</title>
-</head>
+<head th:replace="fragments/head :: header"/>
 <body>
-
 <div class="container">
     <h1 th:align="center" th:text="'Welcome, ' + ${name}"/>
     <div>
@@ -52,19 +45,29 @@
                 <a th:href="@{/index/add_product}">Add product</a>
                 <a th:href="@{/index/orders_list}">View order list</a>
             </div>
+            <div>
+                <a th:href="@{/index/product_list/{amount}(amount = 5)}">5</a>
+                <a th:href="@{/index/product_list/{amount}(amount = 10)}">10</a>
+                <a th:href="@{/index/product_list/{amount}(amount = 15)}">15</a>
+                <a th:href="@{/index/product_list/{amount}(amount = 20)}">20</a>
+            </div>
         </div>
         <div th:if="${products.hasContent()}">
             <nav>
                 <ul class="pagination justify-content-center">
                     <li>
-                        <a class="page-link" th:if="${products.getPageable().getPageNumber() > 0}" th:href="@{/index/product_list(page=${products.getPageable().getPageNumber()}, size=${products.size}, min=${param.min}, max=${param.max})}">Previous</a>
+                        <a class="page-link"
+                           th:if="${products.hasPrevious()}"
+                           th:href="@{/index/product_list(page=${products.number}, size=${products.size}, min=${param.min}, max=${param.max})}">Previous</a>
                     </li>
                     <li th:each="number : ${#numbers.sequence(1, products.totalPages)}"
                         class="page-item" th:classappend="${number == products.number + 1} ? 'active'">
                         <a class="page-link" th:href="@{/index/product_list(page=${number}, size=${products.size}, min=${param.min}, max=${param.max})}">[[${number}]]</a>
                     </li>
                     <li>
-                        <a class="page-link" th:if="${products.hasNext()}" th:href="@{/index/product_list(page=${products.nextPageable().getPageNumber() + 1}, size=${products.size}, min=${param.min}, max=${param.max})}">Next</a>
+                        <a class="page-link"
+                           th:if="${products.hasNext()}"
+                           th:href="@{/index/product_list(page=${products.number + 2}, size=${products.size}, min=${param.min}, max=${param.max})}">Next</a>
                     </li>
                 </ul>
             </nav>
@@ -97,10 +100,6 @@
         </div>
     </div>
 </div>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-        crossorigin="anonymous"></script>
-<script src="https://kit.fontawesome.com/944a576475.js" crossorigin="anonymous"></script>
+<footer th:replace="fragments/footer :: scripts"/>
 </body>
 </html>
