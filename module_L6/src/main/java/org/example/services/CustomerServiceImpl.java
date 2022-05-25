@@ -1,17 +1,17 @@
 package org.example.services;
 
-import lombok.AllArgsConstructor;
 import org.example.entity.Customer;
 import org.example.repository.CustomerRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
-@AllArgsConstructor
 public class CustomerServiceImpl implements CustomerService<Customer> {
 
+    @Autowired
     private CustomerRepository customerRepository;
 
     @Override
@@ -43,5 +43,4 @@ public class CustomerServiceImpl implements CustomerService<Customer> {
     public Customer getByName(String name) {
         return customerRepository.findByName(name);
     }
-
 }

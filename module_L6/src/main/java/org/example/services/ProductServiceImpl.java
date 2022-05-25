@@ -18,7 +18,6 @@ import java.util.Optional;
 
 @Service
 public class ProductServiceImpl implements ProductService<Product> {
-
     @Autowired
     private ProductRepository productRepository;
 
@@ -29,7 +28,7 @@ public class ProductServiceImpl implements ProductService<Product> {
     @Override
     @Transactional(readOnly = true)
     public Product getById(Long id) {
-       return productRepository.findById(id).get();
+        return productRepository.findById(id).get();
     }
 
     @Override
@@ -53,7 +52,7 @@ public class ProductServiceImpl implements ProductService<Product> {
     @Override
     @Transactional(readOnly = true)
     public Product getByName(String title) {
-       return productRepository.findByTitle(title);
+        return productRepository.findByTitle(title);
     }
 
     @Transactional(readOnly = true)
@@ -68,5 +67,11 @@ public class ProductServiceImpl implements ProductService<Product> {
         }
 
         return productRepository.findAll(specification, PageRequest.of(page.orElse(1) - 1, size.orElse(amountProduct)));
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public boolean existById(Long id) {
+        return productRepository.existsById(id);
     }
 }
