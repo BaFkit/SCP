@@ -1,23 +1,25 @@
 package org.example.services;
 
-import lombok.AllArgsConstructor;
 import org.example.entity.Customer;
 import org.example.entity.Order;
 import org.example.entity.Product;
 import org.example.repository.CustomerRepository;
 import org.example.repository.OrderRepository;
 import org.example.repository.ProductRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
-@AllArgsConstructor
 public class OrdersServiceImpl implements OrdersService<Customer, Product> {
 
+    @Autowired
     private ProductRepository productRepository;
+    @Autowired
     private CustomerRepository customerRepository;
+    @Autowired
     private OrderRepository<Customer, Product> orderRepositoryImpl;
 
     @Override

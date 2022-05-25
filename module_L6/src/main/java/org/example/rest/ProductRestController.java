@@ -2,7 +2,7 @@ package org.example.rest;
 
 import org.example.entity.Product;
 import org.example.services.ProductService;
-import org.example.services.exceptions.ProductNotFoundException;
+import org.example.services.exceptions.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,11 +17,7 @@ public class ProductRestController {
 
     @GetMapping("/{id}")
     public Product findById(@PathVariable Long id) {
-        try {
-            return productService.getById(id);
-        } catch (Exception e) {
-            throw new ProductNotFoundException("Product with id:" + id + "- not found");
-        }
+        return productService.getById(id);
     }
 
     @GetMapping
@@ -37,8 +33,11 @@ public class ProductRestController {
 
     @PutMapping(consumes = "application/json")
     public Product updateProduct(@RequestBody Product product) {
-        productService.save(product);
-        return product;
+        if (productService.existById(product.getId())) {
+            productService.save(product);
+            return product;
+        }
+        throw new NotFoundException();
     }
 
     @DeleteMapping("/{id}")

@@ -24,7 +24,7 @@ public class Customer {
     @Column(name = "name")
     private String name;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
     @JoinTable(
             name = "customers_products",
             joinColumns = @JoinColumn(name = "customer_id"),
