@@ -32,6 +32,14 @@ public class Customer {
     )
     private List<Product> products;
 
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "customers_roles",
+            joinColumns = @JoinColumn(name = "customer_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
+    private List<Product> roles;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

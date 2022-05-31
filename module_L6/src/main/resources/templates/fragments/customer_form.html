@@ -1,0 +1,25 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: header"/>
+<body>
+<div class="container">
+    <form th:action="@{/customer/update}" th:method="post" th:object="${customer}">
+        <input type="hidden" th:field="*{id}">
+        <div class="mb-3">
+            <label>Name</label>
+            <input type="text" class="form-control" th:field="*{name}" placeholder="Enter name">
+        </div>
+        <div class="mb-3">
+            <label>Password</label>
+            <input type="password" class="form-control" th:field="*{password}" placeholder="Enter password">
+        </div>
+        <div class="mb-3">
+            <label>Roles</label>
+            <input type="password" class="form-control" th:field="*{password}" placeholder="Enter password">
+        </div>
+        <button type="submit" class="btn btn-primary">Add product</button>
+    </form>
+</div>
+<footer th:replace="fragments/footer :: scripts"/>
+</body>
+</html>
