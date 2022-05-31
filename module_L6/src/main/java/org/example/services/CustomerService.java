@@ -13,4 +13,6 @@ public interface CustomerService<T> {
     void remove(Long id);
 
     T getByName(String name);
+
+    T getByLogin(String login);
 }

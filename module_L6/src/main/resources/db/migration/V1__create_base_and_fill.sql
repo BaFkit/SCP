@@ -15,11 +15,14 @@ DROP TABLE IF EXISTS customers CASCADE;
 CREATE TABLE customers
 (
     id   serial PRIMARY KEY,
-    name VARCHAR(255)
+    name VARCHAR(255) NOT NULL,
+    login VARCHAR(255) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL
 );
-INSERT INTO customers (name)
-VALUES ('Ivan'),
-       ('Petr');
+INSERT INTO customers (name, login, password)
+VALUES ('Ivan', 'admin', 'admin'),
+       ('Petr', 'user', 'pass'),
+       ('Vasy', 'manager', 'manager');
 
 DROP TABLE IF EXISTS orders CASCADE;
 CREATE TABLE orders
