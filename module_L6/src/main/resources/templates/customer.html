@@ -1,13 +1,13 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:replace="fragments/head :: header"/>
 <body>
 <div class="container">
     <div class="row py-2">
         <div class="col-12">
-            <a class="btn btn-outline-dark" th:href="@{/user/new}">Add</a>
+            <a sec:authorize="hasRole('SUPER_ADMIN')" class="btn btn-outline-dark" th:href="@{/user/new}">Add</a>
         </div>
-
         <table class="table table-bordered my-2">
             <thead>
             <tr>
@@ -23,17 +23,14 @@
                 <td th:text="${customer.name}">Customer name</td>
                 <td th:text="${customer.login}">Customer login</td>
                 <td>
-                    <a class="btn btn-success" th:href="@{/customer/{id}(id = ${customer.id})}"><i class="fas fa-edit"></i></a>
-                    <a class="btn btn-danger" th:href="@{/customer/delete/{id}(id = ${customer.id})}"><i class="fas fa-trash-alt"></i></a>
+                    <a sec:authorize="hasRole('SUPER_ADMIN')" class="btn btn-success" th:href="@{/customer/{id}(id = ${customer.id})}"><i class="fas fa-edit"></i></a>
+                    <a sec:authorize="hasRole('SUPER_ADMIN')" class="btn btn-danger" th:href="@{/customer/delete/{id}(id = ${customer.id})}"><i class="fas fa-trash-alt"></i></a>
                 </td>
             </tr>
             </tbody>
         </table>
     </div>
 </div>
-
-
-
 <footer th:replace="fragments/footer :: scripts"/>
 </body>
 </html>

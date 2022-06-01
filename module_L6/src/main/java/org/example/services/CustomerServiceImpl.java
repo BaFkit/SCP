@@ -1,5 +1,7 @@
 package org.example.services;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.example.entity.Customer;
 import org.example.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,12 +10,16 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CustomerServiceImpl implements CustomerService<Customer> {
 
     private CustomerRepository customerRepository;
     private PasswordEncoder passwordEncoder;
+    @Getter
+    @Setter
+    private Customer customer;
 
     @Autowired
     public void setPasswordEncoder(PasswordEncoder passwordEncoder) {

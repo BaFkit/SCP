@@ -15,4 +15,8 @@ public interface CustomerService<T> {
     T getByName(String name);
 
     T getByLogin(String login);
+
+    void setCustomer(T t);
+
+    T getCustomer();
 }

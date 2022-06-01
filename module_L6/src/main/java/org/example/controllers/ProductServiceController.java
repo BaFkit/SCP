@@ -4,6 +4,7 @@ import org.example.entity.Customer;
 import org.example.entity.Product;
 import org.example.services.*;
 import org.example.services.exceptions.NotFoundException;
+import org.example.services.security.CustomerAuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -11,7 +12,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
 import java.util.Optional;
 
@@ -22,15 +22,15 @@ public class ProductServiceController {
     @Autowired
     private ProductService<Product> productServiceImpl;
     @Autowired
-    private CustomerService<Customer> customerServiceImpl;
-    @Autowired
     private OrdersService<Customer, Product> ordersServiceImpl;
+    @Autowired
+    private CustomerAuthService customerAuthService;
 
     private Customer customer;
 
     @GetMapping("/index")
-    public String auth(HttpServletRequest request) {
-        customer = customerServiceImpl.getByName(request.getParameter("name"));
+    public String auth() {
+        customer = customerAuthService.getCustomer();
         return "redirect:product_list";
     }
 
@@ -42,15 +42,15 @@ public class ProductServiceController {
 
     @GetMapping("/product_list")
     public String showProductList(Model model,
-                                  @RequestParam(name = "min", required = false)Optional<BigDecimal> min,
-                                  @RequestParam(name = "max", required = false)Optional<BigDecimal> max,
-                                  @RequestParam(name = "page", required = false)Optional<Integer> page,
-                                  @RequestParam(name = "size", required = false)Optional<Integer> size) {
+                                  @RequestParam(name = "min", required = false) Optional<BigDecimal> min,
+                                  @RequestParam(name = "max", required = false) Optional<BigDecimal> max,
+                                  @RequestParam(name = "page", required = false) Optional<Integer> page,
+                                  @RequestParam(name = "size", required = false) Optional<Integer> size) {
         try {
             model.addAttribute("products", productServiceImpl.getByThroughFilter(min, max, page, size));
             model.addAttribute("name", customer.getName());
             model.addAttribute("customer_products", ordersServiceImpl.getListProducts(customer.getId()));
-        }catch (RuntimeException e){
+        } catch (RuntimeException e) {
             throw new NotFoundException();
         }
         return "product_list";
