@@ -21,8 +21,10 @@ CREATE TABLE customers
 );
 INSERT INTO customers (name, login, password)
 VALUES ('Ivan', 'admin', 'admin'),
-       ('Petr', 'user', 'pass'),
-       ('Vasy', 'manager', 'manager');
+       ('Petr', 'user', 'user'),
+       ('Vasy', 'manager', 'manager'),
+       ('Guest', 'guest', 'guest'),
+       ('Anton', 'super', 'super');
 
 DROP TABLE IF EXISTS orders CASCADE;
 CREATE TABLE orders
