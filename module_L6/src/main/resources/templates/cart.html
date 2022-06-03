@@ -1,0 +1,36 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: header"/>
+<body>
+<head th:replace="fragments/head :: navbar"/>
+<h1>Cart:</h1>
+<table class="table table-success table-striped">
+    <thead>
+    <tr>
+        <th scope="col">id</th>
+        <th scope="col">title</th>
+        <th scope="col">cost</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="product : ${products}">
+        <th scope="row" th:text="${product.id}">1</th>
+        <th scope="row" th:text="${product.title}">1</th>
+        <th scope="row" th:text="${product.cost}">1</th>
+        <th>
+            <a th:href="@{/index/buy/{id}(id = ${product.id})}">Buy</a>
+            <a th:href="@{/index/cart/clean/{id}(id = ${product.id})}">Clean</a>
+        </th>
+    </tr>
+    </tbody>
+    <div>
+        <a th:href="@{/index/product_list}">View product list</a>
+        <a th:href="@{/index/orders_list}">View order list</a>
+    </div>
+</table>
+
+
+
+<footer th:replace="fragments/footer :: scripts"/>
+</body>
+</html>

@@ -2,6 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/head :: header"/>
 <body>
+<head th:replace="fragments/head :: navbar"/>
 <div class="container">
     <form th:action="@{/customer/update}" th:method="post" th:object="${customer}">
         <input type="hidden" th:field="*{id}">
