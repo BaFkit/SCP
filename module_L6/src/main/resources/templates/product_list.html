@@ -2,6 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/head :: header"/>
 <body>
+<head th:replace="fragments/head :: navbar"/>
 <div class="container">
     <h1 th:align="center" th:text="'Welcome, ' + ${name}"/>
     <div>
@@ -29,7 +30,8 @@
                     <th scope="row" th:text="${product.title}">1</th>
                     <th scope="row" th:text="${product.cost}">1</th>
                     <th>
-                        <a th:href="@{/index/buy/{id}(id = ${product.id})}">Buy</a>
+<!--                        <a th:href="@{/index/buy/{id}(id = ${product.id})}">Buy</a>-->
+                        <a th:href="@{/index/cart/{id}(id = ${product.id})}">Add to cart</a>
                         <a th:href="@{/index/{id}(id = ${product.id})}">Update</a>
                         <a th:href="@{/index/delete/{id}(id = ${product.id})}">Delete</a>
                         <a th:href="@{/index/buyer_list/{id}(id = ${product.id})}">Show buyer List</a>
@@ -44,6 +46,7 @@
             <div>
                 <a th:href="@{/index/add_product}">Add product</a>
                 <a th:href="@{/index/orders_list}">View order list</a>
+                <a th:href="@{/index/cart}">View Cart</a>
             </div>
             <div>
                 <a th:href="@{/index/product_list/{amount}(amount = 5)}">5</a>

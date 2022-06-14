@@ -77,7 +77,7 @@ public class ProductServiceController {
     @GetMapping("/buy/{id}")
     public String buyProduct(@PathVariable(value = "id") Long id) {
         ordersServiceImpl.addProductToCustomer(customer, productServiceImpl.getById(id));
-        return "redirect:/index/product_list";
+        return "redirect:/index/cart";
     }
 
     @GetMapping("/delete_purcha/{id}")
